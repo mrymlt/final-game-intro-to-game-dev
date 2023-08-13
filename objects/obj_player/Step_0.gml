@@ -65,11 +65,10 @@ y += y_sp;
 switch (state){
 	case "move":
 	#region move
-	image_speed = 2;
+	image_speed = 0.7;
 	sprite_index = walk_sprite;
 	mask_index = walk_sprite;
-	obj_triple_combo.visible = false;
-	obj_combo.visible = false;
+
 	
 		if (place_meeting(x+x_sp,y,obj_ground)){
 			while !(place_meeting(x+sign(x_sp),y,obj_ground)){
@@ -169,16 +168,17 @@ switch (state){
 
 		if (keyboard_check_pressed(right_key) || keyboard_check_pressed(left_key)){
 			image_index = 0;
+			
 			state = "roll";
 		}
 		if (keyboard_check_released(down_key)){
-			image_speed = 2;
+			image_speed = 0.7;
 				image_index = 0;
 				state = "move";
 			
 		}
 		if (keyboard_check_pressed(attack_one_key)){
-			image_speed = 2;
+			image_speed = 0.7;
 			image_index = 0;
 			state = "crouch attack";
 		}
@@ -194,12 +194,13 @@ switch (state){
 		x += image_xscale*1;
 	
 		sprite_index = attack_one_sprite;
-		if scr_anim_done(0){
+		if scr_anim_done(1){
 			hitbox_function(x,y,attack_one_sprite_damage,self,4,4,1,image_xscale)
 		}
 		
 		if (keyboard_check_pressed(attack_one_key) && (image_index >= 2 && image_index <= 5)){
 			image_index = 0;
+			image_speed = 0.7;
 			state = "speed attack";
 			
 		}
@@ -234,8 +235,7 @@ switch (state){
 	
 	case "attack down":
 	#region attack_down
-	obj_triple_combo.visible = true;
-	obj_combo.visible = false;
+	
 	sprite_index = attack_down_sprite;
 		y_sp += grav * 3;
 		x += image_xscale*2;
@@ -267,7 +267,7 @@ switch (state){
 	break;
 	
 	case "attack two":
-	#region attack_two
+ 	#region attack_two
 	sprite_index = attack_two_sprite;
 	if (image_index <= 1){
 			hitbox_function(x,y,knockback_sprite,self,4,4,2,image_xscale)
@@ -288,20 +288,27 @@ switch (state){
 	
 	case "speed attack":
 	#region speed_attack
-	obj_combo.visible = true;
+	
 	sprite_index = attack_one_duo_sprite;
 	if (image_index <= 1){
 			hitbox_function(x,y,attack_one_duo_sprite,self,4,4,2,image_xscale)
+			
+			if (obj_screenshake.shake == true){
+				if !(instance_exists(obj_combo)){
+					instance_create_layer(x + (-image_xscale * 300), y - sprite_height - 200,"combos",obj_combo);
+				}
+			}
 		}
 		//x += image_xscale*lerp(4,0,0.1);
 		sprite_index = attack_one_duo_sprite;
 		
 		if (keyboard_check_pressed(attack_one_key)){
-			
+			instance_destroy(obj_combo);
 			state = "attack one triple";
 			
 		}
 		if scr_anim_done_end_frame(){
+			instance_destroy(obj_combo);
 			state = "move";
 		}
 	#endregion speed_attack
@@ -309,15 +316,21 @@ switch (state){
 	
 	case "crouch attack":
 	#region crouch_attack
-	obj_combo.visible = true;
-	image_speed = 2;
+	
+	
 	sprite_index = crouch_attack_sprite;
 	if (image_index <= 1){
 			hitbox_function(x,y,crouch_attack_sprite,self,4,4,1,image_xscale)
+			if (obj_screenshake.shake == true){
+				if !(instance_exists(obj_combo)){
+					instance_create_layer(x + (-image_xscale * 300), y - sprite_height - 200,"combos",obj_combo);
+				}
+			}
 		}
 		x += image_xscale*1;
 		sprite_index = crouch_attack_sprite;
 		if scr_anim_done_end_frame(){
+			instance_destroy(obj_combo)
 			state = "move";
 		}
 	#endregion crouch_attack
@@ -326,14 +339,19 @@ switch (state){
 	case "strong attack":
 	#region strong_attack
 	sprite_index = attack_strong_sprite;
-	obj_triple_combo.visible = false;
-	obj_combo.visible = true;
+	
 	if (image_index <= 1){
 			hitbox_function(x,y,attack_strong_sprite,self,4,4,2,image_xscale)
+			if (obj_screenshake.shake == true){
+				if !(instance_exists(obj_combo)){
+					instance_create_layer(x + (-image_xscale * 300), y - sprite_height - 200,"combos",obj_combo);
+				}
+			}
 		}
 		//x += image_xscale*lerp(12,0,0.1);
 		//sprite_index = attack_two_sprite;
 		if scr_anim_done_end_frame(){
+			instance_destroy(obj_combo);
 			state = "move";
 		}
 	#endregion strong_attack
@@ -342,9 +360,13 @@ switch (state){
 	case "knockback":
 	#region knockback
 		sprite_index = knockback_sprite;
-		if (part_particles_count(obj_particle.hitparticle) <= 2){
-			part_particles_create(obj_particle.particle_system, x, y -(sprite_height/2), obj_particle.hitparticle, 1);
+		if !(instance_exists(obj_particle)){
+			var particle = instance_create_depth(x,y-(sprite_height/1.5),-15000,obj_particle);
+			particle.image_angle = point_direction(particle.x,particle.y,x,y)
 		}
+		//if (part_particles_count(obj_particle.hitparticle) <= 1){
+		//	part_particles_create(obj_particle.particle_system, x, y -(sprite_height/2), obj_particle.hitparticle, 1);
+		//}
 		if !(audio_is_playing(snd_hit)) {
 			
 			 var sound = audio_play_sound(snd_hit, 10, false);
@@ -362,6 +384,7 @@ switch (state){
 		//}
 		if scr_anim_done_end_frame() && knockback_speed < 1{
 			knockback_speed = 0;
+			instance_destroy(obj_particle)
 			state = "move";
 		}
 	#endregion knockback
@@ -370,15 +393,19 @@ switch (state){
 	case "attack one triple":
 	#region attack_one_triple
 	sprite_index = attack_one_triple_sprite;
-	obj_triple_combo.visible = true;
-	obj_combo.visible = false;
+
 	if (image_index <= 1){
 			hitbox_function(x,y,attack_strong_sprite,self,4,4,3,image_xscale)
-			
+			if (obj_screenshake.shake == true){
+				if !(instance_exists(obj_triple_combo)){
+					instance_create_layer(x + (-image_xscale * 300), y - sprite_height - 200,"combos",obj_triple_combo);
+				}
+			}
 		}
 		//x += image_xscale*lerp(4,0,0.1);
 		sprite_index = attack_one_triple_sprite;
 	if scr_anim_done_end_frame(){
+		instance_destroy(obj_triple_combo)
 			state = "move";
 		}
 	#endregion attack_one_triple
@@ -387,9 +414,11 @@ switch (state){
 	case "lose":
 	#region lose
 		sprite_index = lose_sprite;
-		obj_fatality.visible = true;
-		obj_triple_combo.visible = false;
-	obj_combo.visible = false;
+		
+				if !(instance_exists(obj_fatality)){
+					instance_create_layer(x + (-image_xscale * 300), y - sprite_height - 200,"combos",obj_fatality);
+				}
+			
 	#endregion lose
 	break;
 	

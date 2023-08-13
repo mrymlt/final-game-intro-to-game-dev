@@ -1,10 +1,10 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_particle",
+  "name": "obj_zoro_shadow",
   "spriteId": {
-    "name": "spr_hit_particle",
-    "path": "sprites/spr_hit_particle/spr_hit_particle.yy",
+    "name": "spr_shadow",
+    "path": "sprites/spr_shadow/spr_shadow.yy",
   },
   "solid": false,
   "visible": true,
@@ -25,7 +25,7 @@
   "physicsKinematic": false,
   "physicsShapePoints": [],
   "eventList": [
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,},
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":3,"collisionObjectId":null,},
   ],
   "properties": [],
   "overriddenProperties": [],

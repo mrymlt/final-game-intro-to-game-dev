@@ -7,7 +7,7 @@
     "path": "sprites/spr_combo/spr_combo.yy",
   },
   "solid": false,
-  "visible": false,
+  "visible": true,
   "managed": true,
   "spriteMaskId": null,
   "persistent": false,
