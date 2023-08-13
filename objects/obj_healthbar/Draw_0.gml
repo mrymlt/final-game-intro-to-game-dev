@@ -1,0 +1,1 @@
+draw_healthbar(x_coord,y_coord,x_width, y_height, player_health, c_black, c_black, c_white, 0, true, true)
