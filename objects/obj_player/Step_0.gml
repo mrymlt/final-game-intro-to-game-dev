@@ -11,10 +11,11 @@ up_move = keyboard_check(up_key);
 move = right_move + left_move;
 x_sp = move_sp * move * speed_accel;
 
-if !(move == 0){
-	speed_accel += 0.03;
-}
-else speed_accel = 1;
+//if !(move == 0){
+	//speed_accel += 0.03;
+//}
+//else 
+speed_accel = 2;
 
 
 #region boundary
@@ -22,23 +23,11 @@ else speed_accel = 1;
 		x = ((room_width/12)*11);
 		speed_accel = 1;
 	}
-	if x <= (room_width/12){
-		x = ((room_width/12) );
+	if x <= 500{
+		x = 500;
 		speed_accel = 1;
 	}
-	
-	//if (place_meeting(x,y,obj_player)){
-	//	x += image_xscale*obj_player.sprite_width
-	//	//move_sp = 0;
-	//	var pd = point_direction(x, y,obj_player.x,obj_player.y);
-	//	var push_am = 1 * cos( degtorad( direction - pd));
-	//	obj_player.x += lengthdir_x(push_am, pd);
-	//	obj_player.y += lengthdir_y(push_am, pd);
-	//}
-	//if (position_meeting(x,y,other.solid)){
-	//	show_debug_message("H")
-	//	move = 0;
-	//}
+
 #endregion boundary
 
 #region image_xscale
@@ -56,7 +45,11 @@ else{
 if (y_sp < 15){
 	y_sp += grav;
 }
-//show_debug_message(state)
+
+if (y_sp > 0){
+	y_sp += grav;
+}
+show_debug_message(state)
 #region gravity
 if (place_meeting(x,y+y_sp,obj_ground)){
 		while !(place_meeting(x,y+sign(y_sp),obj_ground)){
@@ -72,9 +65,11 @@ y += y_sp;
 switch (state){
 	case "move":
 	#region move
-	image_speed = 1.5;
+	image_speed = 2;
 	sprite_index = walk_sprite;
 	mask_index = walk_sprite;
+	obj_triple_combo.visible = false;
+	obj_combo.visible = false;
 	
 		if (place_meeting(x+x_sp,y,obj_ground)){
 			while !(place_meeting(x+sign(x_sp),y,obj_ground)){
@@ -86,38 +81,43 @@ switch (state){
 
 		x += x_sp;
 		
-		//if (place_meeting(x+x_sp,y,obj_player)){
-		//	move_sp = (move_sp/12)*11;
-			
-		//}
-		
-		if !(keyboard_check(up_key) || keyboard_check(down_key) || 
-		keyboard_check(left_key) || keyboard_check(right_key) || keyboard_check(attack_one_key) ||
-		keyboard_check(attack_two_key)){
+
+		if !(keyboard_check(left_key) || keyboard_check(right_key)){
 			sprite_index = idle_sprite;
-			image_speed *= 0.3;
+			image_speed = 0.2;
+			
 		}
+
+		
 		
 		//if no key pressed idle animation
 		
 		if keyboard_check_pressed(down_key){
 			state = "duck";
+			image_speed = 0.7;
 			image_index = 0;
 		}
-		if ((up_move ==1) && (place_meeting(x,y+1,obj_ground))){
+		if (keyboard_check_pressed(up_key) && (place_meeting(x,y+1,obj_ground))){
 			state = "jump";
+			sprite_index = jump_sprite;
+			image_index = 0;
+			image_speed = 0.7
+
 			image_index = 0;
 		}
 		if (keyboard_check_pressed(attack_one_key)){
 			state = "attack one";
+			image_speed = 0.7;
 			image_index = 0;
 		}
 		if (keyboard_check_pressed(attack_two_key)){
 			state = "attack two";
+			image_speed = 0.7;
 			image_index = 0;
 		}
 		if (max_health <= 0){
 			image_index = 0;
+			image_speed = 0.7;
 			state = "lose";
 
 		}	
@@ -126,32 +126,36 @@ switch (state){
 	
 	case "jump":
 	#region jump
-		if (place_meeting(x,y+1,obj_ground)){
-			y_sp = up_move * -jump;		
-			sprite_index = jump_sprite;
-			image_index = 0;
+	show_debug_message(image_index)
+	
+		if (place_meeting(x,y+1,obj_ground)) && image_index >= 2 && image_index <= 3{
+			y_sp = -jump;		
+
 		}
 		
-		if (!(place_meeting(x,y+1,obj_ground)) && image_index >= 3){
+		if (!(place_meeting(x,y+1,obj_ground)) && image_index >= 3 && y_sp <= 0){
 			image_speed *= 0;
 		}
-		
+			
 		x += x_sp;
-		if (keyboard_check_pressed(attack_one_key)){
-			state = "attack one";
-			image_index = 0;
-		}
 		
 		if (keyboard_check_pressed(up_key)){
-			image_speed = 2;
+			image_speed = 0.7;
+			image_index = 1;
 			y_sp = up_move * -jump;
 			state = "double jump";
-			image_index = 0;
+			//image_index = 0;
 		}
 		if (place_meeting(x,y+1,obj_ground) && y_sp >= 0){
+			image_speed = 0.7;
+			if scr_anim_done_end_frame(){
 				state = "move";
 				image_index = 0;
+			}
+			
+				
 		}
+		
 		
 	#endregion jump
 	break;
@@ -162,15 +166,8 @@ switch (state){
 			sprite_index = crouch_sprite
 			mask_index = crouch_sprite
 		}
-		//if (keyboard_check(down_key) && image_index >= 3){
-		//	//show_debug_message(image_speed)
-		//	image_speed = 0;
-		//	image_index = 3;
-		//}
-		//else{
-		//	image_speed = 2;
-		//}
-		if (keyboard_check(right_key) || keyboard_check(left_key)){
+
+		if (keyboard_check_pressed(right_key) || keyboard_check_pressed(left_key)){
 			image_index = 0;
 			state = "roll";
 		}
@@ -180,10 +177,13 @@ switch (state){
 				state = "move";
 			
 		}
-		if (keyboard_check(attack_one_key)){
+		if (keyboard_check_pressed(attack_one_key)){
 			image_speed = 2;
 			image_index = 0;
 			state = "crouch attack";
+		}
+		if scr_anim_done_end_frame(){
+			state = "move";
 		}
 		
 	#endregion duck
@@ -192,14 +192,19 @@ switch (state){
 	case "attack one":
 	#region attack_one
 		x += image_xscale*1;
+	
 		sprite_index = attack_one_sprite;
-		if (image_index <= 1){
-			hitbox_function(x,y,attack_one_sprite,self,4,4,1,image_xscale)
+		if scr_anim_done(0){
+			hitbox_function(x,y,attack_one_sprite_damage,self,4,4,1,image_xscale)
 		}
 		
-		if (keyboard_check_pressed(attack_one_key) && (image_index >= 1 && image_index <= 4)){
-			state = "speed attack";
+		if (keyboard_check_pressed(attack_one_key) && (image_index >= 2 && image_index <= 5)){
 			image_index = 0;
+			state = "speed attack";
+			
+		}
+		if scr_anim_done_end_frame(){
+			state = "move";
 		}
 	#endregion attack_one
 	break;
@@ -217,10 +222,12 @@ switch (state){
 			image_speed *= 0;
 		}
 		if (place_meeting(x,y+1,obj_ground) && y_sp >= 0){
-			image_index = 0;
-			state = "move"
+			image_speed = 0.7;
+			if scr_anim_done_end_frame(){
+				state = "move";
+				image_index = 0;
+			}
 		}
-		
 
 	#endregion double_jump
 	break;
@@ -243,6 +250,9 @@ switch (state){
 			state = "move";
 			image_index = 0;
 		}
+		if scr_anim_done_end_frame(){
+			state = "move";
+		}
 	#endregion attack_down
 	break;
 	
@@ -250,6 +260,9 @@ switch (state){
 	#region roll
 		sprite_index = roll_sprite;
 		x -= image_xscale*lerp(20,0,0.2);
+		if scr_anim_done_end_frame(){
+			state = "move";
+		}
 	#endregion roll
 	break;
 	
@@ -258,10 +271,15 @@ switch (state){
 	sprite_index = attack_two_sprite;
 	if (image_index <= 1){
 			hitbox_function(x,y,knockback_sprite,self,4,4,2,image_xscale)
+	}
+	if (keyboard_check_pressed(attack_two_key)){	
+			state = "strong attack";
+			image_speed = 0.7;
+			image_index = 0;
 		}
-		sprite_index = attack_two_sprite;	
+		//sprite_index = attack_two_sprite;	
 		x -= image_xscale*7;
-		if (keyboard_check_released(attack_two_key)){
+		if scr_anim_done_end_frame(){
 			state = "move";
 		}
 		
@@ -275,15 +293,16 @@ switch (state){
 	if (image_index <= 1){
 			hitbox_function(x,y,attack_one_duo_sprite,self,4,4,2,image_xscale)
 		}
-		x += image_xscale*lerp(4,0,0.1);
+		//x += image_xscale*lerp(4,0,0.1);
 		sprite_index = attack_one_duo_sprite;
-		if (keyboard_check_pressed(attack_two_key)){
-			image_index = 0;
-			state = "strong attack";
-		}
+		
 		if (keyboard_check_pressed(attack_one_key)){
+			
 			state = "attack one triple";
-			image_index = 0;
+			
+		}
+		if scr_anim_done_end_frame(){
+			state = "move";
 		}
 	#endregion speed_attack
 	break;
@@ -298,19 +317,25 @@ switch (state){
 		}
 		x += image_xscale*1;
 		sprite_index = crouch_attack_sprite;
+		if scr_anim_done_end_frame(){
+			state = "move";
+		}
 	#endregion crouch_attack
 	break;
 	
 	case "strong attack":
 	#region strong_attack
 	sprite_index = attack_strong_sprite;
-	obj_triple_combo.visible = true;
-	obj_combo.visible = false;
+	obj_triple_combo.visible = false;
+	obj_combo.visible = true;
 	if (image_index <= 1){
 			hitbox_function(x,y,attack_strong_sprite,self,4,4,2,image_xscale)
 		}
-		x += image_xscale*lerp(12,0,0.1);
-		sprite_index = attack_two_sprite;
+		//x += image_xscale*lerp(12,0,0.1);
+		//sprite_index = attack_two_sprite;
+		if scr_anim_done_end_frame(){
+			state = "move";
+		}
 	#endregion strong_attack
 	break;
 	
@@ -321,16 +346,23 @@ switch (state){
 			part_particles_create(obj_particle.particle_system, x, y -(sprite_height/2), obj_particle.hitparticle, 1);
 		}
 		if !(audio_is_playing(snd_hit)) {
-			  var sound = audio_play_sound(snd_hit, 10, false);
+			
+			 var sound = audio_play_sound(snd_hit, 10, false);
+			 //audio_stop_sound(snd_hit);
 			instance_destroy(sound);
 		}
+		
 		knockback_speed = lerp(knockback_speed, 0, 0.1);
 		x += image_xscale*knockback_speed
 			
-		if (knockback_speed < 1){
+		//if (knockback_speed < 1){
+		//	knockback_speed = 0;
+		//	state = "move";
+			
+		//}
+		if scr_anim_done_end_frame() && knockback_speed < 1{
 			knockback_speed = 0;
 			state = "move";
-			
 		}
 	#endregion knockback
 	break;
@@ -344,8 +376,11 @@ switch (state){
 			hitbox_function(x,y,attack_strong_sprite,self,4,4,3,image_xscale)
 			
 		}
-		x += image_xscale*lerp(4,0,0.1);
+		//x += image_xscale*lerp(4,0,0.1);
 		sprite_index = attack_one_triple_sprite;
+	if scr_anim_done_end_frame(){
+			state = "move";
+		}
 	#endregion attack_one_triple
 	break;
 	

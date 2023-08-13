@@ -30,6 +30,7 @@
   "frames": [
     {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"e9473cb1-580f-49d8-b70b-32c72aca9ec6",},
     {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"07617694-de4d-4b4f-a431-70640b608229",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"49d97e20-1a26-46cc-b69a-4127aec2c05a",},
   ],
   "sequence": {
     "resourceType": "GMSequence",
@@ -37,17 +38,18 @@
     "name": "spr_zoro_knockback",
     "timeUnits": 1,
     "playback": 1,
-    "playbackSpeed": 6.0,
+    "playbackSpeed": 15.0,
     "playbackSpeedType": 0,
     "autoRecord": true,
     "volume": 1.0,
-    "length": 2.0,
+    "length": 3.0,
     "events": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MessageEventKeyframe>",},
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MomentsEventKeyframe>",},
     "tracks": [
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","spriteId":null,"keyframes":{"Keyframes":[
             {"id":"666b4ad1-dbc2-4d71-851a-dc8e984ffe70","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"e9473cb1-580f-49d8-b70b-32c72aca9ec6","path":"sprites/spr_zoro_knockback/spr_zoro_knockback.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"203c4558-f35b-46cb-aae0-cce7fad36b8f","Key":1.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"07617694-de4d-4b4f-a431-70640b608229","path":"sprites/spr_zoro_knockback/spr_zoro_knockback.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
+            {"id":"360e92e6-95e6-40c8-96df-c8edf0083c5e","Key":2.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"49d97e20-1a26-46cc-b69a-4127aec2c05a","path":"sprites/spr_zoro_knockback/spr_zoro_knockback.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
           ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"modifiers":[],},
     ],
     "visibleRange": null,

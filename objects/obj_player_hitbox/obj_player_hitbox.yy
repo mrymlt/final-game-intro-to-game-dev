@@ -2,10 +2,7 @@
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
   "name": "obj_player_hitbox",
-  "spriteId": {
-    "name": "spr_sanji_attack_down",
-    "path": "sprites/spr_sanji_attack_down/spr_sanji_attack_down.yy",
-  },
+  "spriteId": null,
   "solid": false,
   "visible": false,
   "managed": true,

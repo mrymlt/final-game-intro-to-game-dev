@@ -1,11 +1,4 @@
-///@arg x
-///@arg y
-///@arg sprite
-///@arg creator
-///@arg knockback
-///@arg lifespan
-///@arg damage
-///@arg xscale
+
 
 function hitbox_function(x,y,sprite,creator,knockback,lifespan,damage,xscale){
 		var hitbox = instance_create_layer(x,y, "Instances", obj_player_hitbox);
