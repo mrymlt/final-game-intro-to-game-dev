@@ -5,5 +5,5 @@ rounds = true;
 global.sanji_points = 3;
 global.zoro_points = 3;
 
-global.zoro_win = false;
-global.zoro_win = false;
+//global.zoro_win = false;
+//global.sanji_win = false;

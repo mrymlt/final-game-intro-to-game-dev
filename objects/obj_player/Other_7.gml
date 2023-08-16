@@ -6,6 +6,7 @@
 
 if state == "lose"{
 //	obj_fight_particles.win = true;
+	global.zoro_points -= subtract_point;
 	global.rounds +=1;
 	room_restart();
 }

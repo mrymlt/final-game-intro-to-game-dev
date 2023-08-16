@@ -11,3 +11,13 @@
 ////part_type_color2(hitparticle,c_white,c_gray);
 //part_type_life(hitparticle,5,10);
 
+
+
+//add movement in instance create 
+//move away from attack direction - sense of direction 
+
+//change of tint, who hit who - fighting game change sprite col sanji/zoro 
+
+//street fighter ? view playtest - movement to effect - differentiation between characters 
+
+//subparticles, small touches 

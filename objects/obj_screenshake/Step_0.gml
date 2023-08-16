@@ -19,3 +19,5 @@ if (shake)
       } 
    } 
 }
+
+//triggering shake if shaking occuring - add shake time - add magnitude
