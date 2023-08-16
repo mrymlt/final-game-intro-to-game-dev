@@ -10,18 +10,22 @@ image_speed = 0.05;
 if (global.rounds == 1){
 	if (global.zoro_points == 2){
 		draw_sprite(spr_zor_lose,-1,0,0);
+		global.round_one_winner = "sanji";
 		
 	}
 	else{
 		draw_sprite(spr_san_lose,-1,0,0);
+		global.round_one_winner = "zoro";
 	}
 }
 if (global.rounds == 2){
 	if (global.zoro_points == 2 && global.zoro_round_one = true || !(global.zoro_points == 1) || (global.zoro_points == 3)){
 		draw_sprite(spr_san_lose,-1,0,0);
+		global.round_two_winner = "zoro";
 	}
 	else{
 		draw_sprite(spr_zor_lose,-1,0,0);
+		global.round_two_winner = "sanji";
 		}
 }
 

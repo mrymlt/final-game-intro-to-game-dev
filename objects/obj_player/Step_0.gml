@@ -314,7 +314,7 @@ switch (state){
 		sprite_index = attack_one_duo_sprite;
 		
 		if (keyboard_check_pressed(attack_one_key)){
-			instance_destroy(obj_combo);
+			
 			state = "attack one triple";
 			
 		}
@@ -423,6 +423,7 @@ switch (state){
 		sprite_index = attack_one_triple_sprite;
 	if scr_anim_done_end_frame(){
 		instance_destroy(obj_triple_combo)
+		instance_destroy(obj_combo);
 			state = "move";
 		}
 	#endregion attack_one_triple
