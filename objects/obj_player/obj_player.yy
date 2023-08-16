@@ -69,6 +69,7 @@
     {"resourceType":"GMObjectProperty","resourceVersion":"1.0","name":"attack_triple_damage","varType":0,"value":"spr_zoro_attack_triple67","rangeEnabled":false,"rangeMin":0.0,"rangeMax":10.0,"listItems":[],"multiselect":false,"filters":[],},
     {"resourceType":"GMObjectProperty","resourceVersion":"1.0","name":"attack_two_damage","varType":0,"value":"spr_zoro_attack_two68","rangeEnabled":false,"rangeMin":0.0,"rangeMax":10.0,"listItems":[],"multiselect":false,"filters":[],},
     {"resourceType":"GMObjectProperty","resourceVersion":"1.0","name":"attack_crouch_damage","varType":0,"value":"spr_zoro_crouch_attack69","rangeEnabled":false,"rangeMin":0.0,"rangeMax":10.0,"listItems":[],"multiselect":false,"filters":[],},
+    {"resourceType":"GMObjectProperty","resourceVersion":"1.0","name":"sound_hitting","varType":0,"value":"snd_kick","rangeEnabled":false,"rangeMin":0.0,"rangeMax":10.0,"listItems":[],"multiselect":false,"filters":[],},
   ],
   "overriddenProperties": [],
   "parent": {

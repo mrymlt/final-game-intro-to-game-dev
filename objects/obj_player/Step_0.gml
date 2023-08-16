@@ -74,12 +74,18 @@ switch (state){
 		if (place_meeting(x+x_sp,y,obj_ground)){
 			while !(place_meeting(x+sign(x_sp),y,obj_ground)){
 				x += sign(x_sp);
-			}
+					if !(move == 0){
+						audio_play_sound(snd_walk,1,false)
+					}
 			//x_sp = 0;
-	
+			}
+		}
+		else{
+			audio_stop_sound(snd_walk);
 		}
 
 		x += x_sp;
+		
 		
 
 		if !(keyboard_check(left_key) || keyboard_check(right_key)){
@@ -299,6 +305,7 @@ switch (state){
 			
 			if (obj_screenshake.shake == true){
 				if !(instance_exists(obj_combo)){
+					obj_screenshake.shake_time = 30;
 					instance_create_layer(x + (-image_xscale * 300), y - sprite_height - 200,"combos",obj_combo);
 				}
 			}
@@ -327,6 +334,7 @@ switch (state){
 			hitbox_function(x,y,attack_crouch_damage,self,4,4,1,image_xscale)
 			if (obj_screenshake.shake == true){
 				if !(instance_exists(obj_combo)){
+					obj_screenshake.shake_time = 30;
 					instance_create_layer(x + (-image_xscale * 300), y - sprite_height - 200,"combos",obj_combo);
 				}
 			}
@@ -348,6 +356,7 @@ switch (state){
 			hitbox_function(x,y,attack_strong_damage,self,4,4,2,image_xscale)
 			if (obj_screenshake.shake == true){
 				if !(instance_exists(obj_combo)){
+					obj_screenshake.shake_time = 30;
 					instance_create_layer(x + (-image_xscale * 300), y - sprite_height - 200,"combos",obj_combo);
 				}
 			}
@@ -370,13 +379,16 @@ switch (state){
 		}
 		//if (part_particles_count(obj_particle.hitparticle) <= 1){
 		//	part_particles_create(obj_particle.particle_system, x, y -(sprite_height/2), obj_particle.hitparticle, 1);
-		//}
-		if !(audio_is_playing(snd_hit)) {
+		//
+		
+		
+		if !(audio_is_playing(sound_hitting)) {
 			
-			 var sound = audio_play_sound(snd_hit, 10, false);
+			 var sound = audio_play_sound(sound_hitting, 10, false);
 			 //audio_stop_sound(snd_hit);
 			instance_destroy(sound);
 		}
+		
 		
 		knockback_speed = lerp(knockback_speed, 0, 0.1);
 		x += image_xscale*knockback_speed
@@ -402,6 +414,7 @@ switch (state){
 			hitbox_function(x,y,attack_strong_damage,self,4,4,3,image_xscale)
 			if (obj_screenshake.shake == true){
 				if !(instance_exists(obj_triple_combo)){
+					obj_screenshake.shake_time = 30;
 					instance_create_layer(x + (-image_xscale * 300), y - sprite_height - 200,"combos",obj_triple_combo);
 				}
 			}
@@ -420,6 +433,7 @@ switch (state){
 		sprite_index = lose_sprite;
 		
 				if !(instance_exists(obj_fatality)){
+					obj_screenshake.shake_time = 40;
 					instance_create_layer(x + (-image_xscale * 300), y - sprite_height - 200,"combos",obj_fatality);
 				}
 			

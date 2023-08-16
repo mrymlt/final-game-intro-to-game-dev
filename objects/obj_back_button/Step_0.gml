@@ -1,3 +1,9 @@
-if (mouse_check_button(mb_left) && position_meeting(mouse_x,mouse_y,self)){
-	room_goto(rm_starting);
+if (position_meeting(mouse_x,mouse_y,self)){
+	image_index = 1;
+	if (mouse_check_button(mb_left)){
+		room_goto(rm_starting);
+	}
+}
+else{
+	image_index = 0;
 }
