@@ -74,15 +74,17 @@ switch (state){
 		if (place_meeting(x+x_sp,y,obj_ground)){
 			while !(place_meeting(x+sign(x_sp),y,obj_ground)){
 				x += sign(x_sp);
-					if !(move == 0){
-						audio_play_sound(snd_walk,1,false)
-					}
+					
 			//x_sp = 0;
 			}
 		}
-		else{
-			audio_stop_sound(snd_walk);
-		}
+		
+		//if keyboard_check(left_key) || keyboard_check(right_key){
+		//	audio_play_sound(snd_walk,50,false);
+		//}
+		////else{
+		////	audio_stop_sound(snd_walk);
+		////}
 
 		x += x_sp;
 		
@@ -153,9 +155,11 @@ switch (state){
 			//image_index = 0;
 		}
 		if (place_meeting(x,y+1,obj_ground) && y_sp >= 0){
+			
 			image_speed = 0.7;
 			if scr_anim_done_end_frame(){
 				state = "move";
+				
 				image_index = 0;
 			}
 			
@@ -310,6 +314,7 @@ switch (state){
 				}
 			}
 		}
+		
 		//x += image_xscale*lerp(4,0,0.1);
 		sprite_index = attack_one_duo_sprite;
 		
@@ -374,20 +379,24 @@ switch (state){
 	#region knockback
 		sprite_index = knockback_sprite;
 		if !(instance_exists(obj_particle)){
+			var sound = audio_play_sound(sound_hitting, 10, false);
 			var particle = instance_create_depth(x,y-(sprite_height/1.5),-15000,obj_particle);
 			particle.image_angle = point_direction(particle.x,particle.y,x,y)
 		}
+		timer ++;
 		//if (part_particles_count(obj_particle.hitparticle) <= 1){
 		//	part_particles_create(obj_particle.particle_system, x, y -(sprite_height/2), obj_particle.hitparticle, 1);
 		//
 		
 		
-		if !(audio_is_playing(sound_hitting)) {
-			
+		//if !(audio_is_playing(sound_hitting)) {
+		if (timer % 30 == 0){
 			 var sound = audio_play_sound(sound_hitting, 10, false);
-			 //audio_stop_sound(snd_hit);
-			instance_destroy(sound);
+			 timer = 0;
 		}
+			 //audio_stop_sound(snd_hit);
+			//instance_destroy(sound);
+		//}
 		
 		
 		knockback_speed = lerp(knockback_speed, 0, 0.1);
@@ -399,9 +408,11 @@ switch (state){
 			
 		//}
 		if scr_anim_done_end_frame() && knockback_speed < 1{
+			audio_stop_sound(sound_hitting)
 			knockback_speed = 0;
 			instance_destroy(obj_particle)
 			state = "move";
+			
 		}
 	#endregion knockback
 	break;

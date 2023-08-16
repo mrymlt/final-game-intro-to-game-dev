@@ -66,6 +66,7 @@
     {"id":{"name":"spr_sanji_jump","path":"sprites/spr_sanji_jump/spr_sanji_jump.yy",},"order":14,},
     {"id":{"name":"fnt_one","path":"fonts/fnt_one/fnt_one.yy",},"order":0,},
     {"id":{"name":"spr_sanji_crouch_attack76","path":"sprites/spr_sanji_crouch_attack76/spr_sanji_crouch_attack76.yy",},"order":13,},
+    {"id":{"name":"snd_button","path":"sounds/snd_button/snd_button.yy",},"order":4,},
     {"id":{"name":"spr_zoro_knockback","path":"sprites/spr_zoro_knockback/spr_zoro_knockback.yy",},"order":9,},
     {"id":{"name":"obj_zoro_shadow","path":"objects/obj_zoro_shadow/obj_zoro_shadow.yy",},"order":25,},
     {"id":{"name":"spr_clouds","path":"sprites/spr_clouds/spr_clouds.yy",},"order":55,},
