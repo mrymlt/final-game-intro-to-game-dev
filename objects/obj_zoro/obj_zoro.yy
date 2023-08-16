@@ -9,7 +9,10 @@
   "solid": false,
   "visible": true,
   "managed": true,
-  "spriteMaskId": null,
+  "spriteMaskId": {
+    "name": "spr_zoro_mask",
+    "path": "sprites/spr_zoro_mask/spr_zoro_mask.yy",
+  },
   "persistent": false,
   "parentObjectId": {
     "name": "obj_player",

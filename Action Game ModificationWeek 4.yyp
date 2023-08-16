@@ -74,6 +74,7 @@
     {"id":{"name":"spr_bg_color","path":"sprites/spr_bg_color/spr_bg_color.yy",},"order":53,},
     {"id":{"name":"obj_win_event","path":"objects/obj_win_event/obj_win_event.yy",},"order":12,},
     {"id":{"name":"spr_controls","path":"sprites/spr_controls/spr_controls.yy",},"order":57,},
+    {"id":{"name":"spr_zoro_mask","path":"sprites/spr_zoro_mask/spr_zoro_mask.yy",},"order":15,},
     {"id":{"name":"obj_round_event","path":"objects/obj_round_event/obj_round_event.yy",},"order":26,},
     {"id":{"name":"obj_clouds","path":"objects/obj_clouds/obj_clouds.yy",},"order":15,},
     {"id":{"name":"spr_zor_point","path":"sprites/spr_zor_point/spr_zor_point.yy",},"order":70,},

@@ -2,7 +2,7 @@
   "resourceType": "GMSprite",
   "resourceVersion": "1.0",
   "name": "spr_sanji_crouch",
-  "bboxMode": 2,
+  "bboxMode": 0,
   "collisionKind": 0,
   "type": 0,
   "origin": 7,
