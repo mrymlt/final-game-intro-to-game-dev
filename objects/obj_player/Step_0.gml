@@ -7,6 +7,7 @@ up_move = keyboard_check(up_key);
 //attack_one = keyboard_check(attack_one_key);
 //attack_two = keyboard_check(attack_two_key);
 
+show_debug_message(image_xscale)
 
 move = right_move + left_move;
 x_sp = move_sp * move * speed_accel;
@@ -49,7 +50,7 @@ if (y_sp < 15){
 if (y_sp > 0){
 	y_sp += grav;
 }
-show_debug_message(state)
+//show_debug_message(state)
 #region gravity
 if (place_meeting(x,y+y_sp,obj_ground)){
 		while !(place_meeting(x,y+sign(y_sp),obj_ground)){
@@ -237,21 +238,24 @@ switch (state){
 	#region attack_down
 	
 	sprite_index = attack_down_sprite;
-		y_sp += grav * 3;
+		y_sp += grav * 2;
 		x += image_xscale*2;
-		if (!(place_meeting(x,y+1,obj_ground)) && image_index >= 3){
+		
+		if (!(place_meeting(x,y+1,obj_ground)) && image_index >= 4){
 			image_speed *= 0;
 		}
+		
 		sprite_index = attack_down_sprite
 		if (image_index >= 1){
-			hitbox_function(x,y,attack_down_sprite,self,4,4,3,image_xscale)
+			hitbox_function(x,y,attack_down_damage,self,4,4,3,image_xscale)
 		}
 		if (place_meeting(x,y+1,obj_ground) && y_sp >= 0){
-			state = "move";
-			image_index = 0;
-		}
-		if scr_anim_done_end_frame(){
-			state = "move";
+			image_speed = 0.7;
+			if scr_anim_done_end_frame(){
+				state = "move";
+				image_index = 0;
+			}
+				
 		}
 	#endregion attack_down
 	break;
@@ -270,7 +274,7 @@ switch (state){
  	#region attack_two
 	sprite_index = attack_two_sprite;
 	if (image_index <= 1){
-			hitbox_function(x,y,knockback_sprite,self,4,4,2,image_xscale)
+			hitbox_function(x,y,attack_two_damage,self,4,4,2,image_xscale)
 	}
 	if (keyboard_check_pressed(attack_two_key)){	
 			state = "strong attack";
@@ -291,7 +295,7 @@ switch (state){
 	
 	sprite_index = attack_one_duo_sprite;
 	if (image_index <= 1){
-			hitbox_function(x,y,attack_one_duo_sprite,self,4,4,2,image_xscale)
+			hitbox_function(x,y,attack_triple_damage,self,4,4,2,image_xscale)
 			
 			if (obj_screenshake.shake == true){
 				if !(instance_exists(obj_combo)){
@@ -320,7 +324,7 @@ switch (state){
 	
 	sprite_index = crouch_attack_sprite;
 	if (image_index <= 1){
-			hitbox_function(x,y,crouch_attack_sprite,self,4,4,1,image_xscale)
+			hitbox_function(x,y,attack_crouch_damage,self,4,4,1,image_xscale)
 			if (obj_screenshake.shake == true){
 				if !(instance_exists(obj_combo)){
 					instance_create_layer(x + (-image_xscale * 300), y - sprite_height - 200,"combos",obj_combo);
@@ -341,7 +345,7 @@ switch (state){
 	sprite_index = attack_strong_sprite;
 	
 	if (image_index <= 1){
-			hitbox_function(x,y,attack_strong_sprite,self,4,4,2,image_xscale)
+			hitbox_function(x,y,attack_strong_damage,self,4,4,2,image_xscale)
 			if (obj_screenshake.shake == true){
 				if !(instance_exists(obj_combo)){
 					instance_create_layer(x + (-image_xscale * 300), y - sprite_height - 200,"combos",obj_combo);
@@ -395,7 +399,7 @@ switch (state){
 	sprite_index = attack_one_triple_sprite;
 
 	if (image_index <= 1){
-			hitbox_function(x,y,attack_strong_sprite,self,4,4,3,image_xscale)
+			hitbox_function(x,y,attack_strong_damage,self,4,4,3,image_xscale)
 			if (obj_screenshake.shake == true){
 				if !(instance_exists(obj_triple_combo)){
 					instance_create_layer(x + (-image_xscale * 300), y - sprite_height - 200,"combos",obj_triple_combo);
