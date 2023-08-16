@@ -7,6 +7,6 @@ else{
 	draw_sprite(spr_end_sanji,image_index,0,0)
 }
 
-show_debug_message( global.sanji_points)
-show_debug_message( global.zoro_points )
+//show_debug_message( global.sanji_points)
+//show_debug_message( global.zoro_points )
 

@@ -7,7 +7,7 @@ up_move = keyboard_check(up_key);
 //attack_one = keyboard_check(attack_one_key);
 //attack_two = keyboard_check(attack_two_key);
 
-show_debug_message(image_xscale)
+//show_debug_message(image_xscale)
 
 move = right_move + left_move;
 x_sp = move_sp * move * speed_accel;
@@ -17,6 +17,7 @@ x_sp = move_sp * move * speed_accel;
 //}
 //else 
 speed_accel = 2;
+
 
 
 #region boundary
